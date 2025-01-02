@@ -1,6 +1,7 @@
 
 import { _decorator, Component, EventTouch, Node, UITransform, Vec2, Vec3 } from 'cc';
 import { GameInfo } from '../Const/GameInfo';
+import { BlackHole } from './BlackHole';
 const { ccclass, property } = _decorator;
 
 /**
@@ -17,8 +18,8 @@ const { ccclass, property } = _decorator;
  
 @ccclass('JoyStick')
 export class JoyStick extends Component {
-    // @property(BlackHole)
-    // BlackHole: BlackHole = null;
+    @property(BlackHole)
+    BlackHole: BlackHole = null;
 
     currentTouchPos: Vec3 = null;
 
@@ -51,6 +52,8 @@ export class JoyStick extends Component {
     private touchStart(event: EventTouch): void {
         if (!GameInfo.isCanTouch) return;
 
+        GameInfo.IsPlaying = true;
+
         GameInfo.isTouching = true;
 
         this.toggleJoystickUI();
@@ -81,8 +84,7 @@ export class JoyStick extends Component {
 
         this.stick.setPosition(this.currentTouchPos);
 
-        // this.BlackHole.radian = this.getRadian();
-
+        this.BlackHole.radian = this.getRadian();
     }
 
 
