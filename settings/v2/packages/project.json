@@ -30,5 +30,11 @@
       "2": 10,
       "3": 6
     }
-  }
+  },
+  "layer": [
+    {
+      "name": "Score3DObjects",
+      "value": 1
+    }
+  ]
 }
