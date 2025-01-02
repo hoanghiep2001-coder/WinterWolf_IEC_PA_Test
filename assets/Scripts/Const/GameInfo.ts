@@ -29,7 +29,9 @@ export class GameInfo {
     static isWin: boolean = false;
 
     // Game Variables
-
+    static currentCubesFall: number = 0;
+    static currentCylindersFall: number = 0;
+    static currentBetonsFall: number = 0;
     
 }
 

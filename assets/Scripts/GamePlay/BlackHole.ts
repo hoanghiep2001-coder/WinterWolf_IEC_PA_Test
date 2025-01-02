@@ -60,12 +60,29 @@ export class BlackHole extends Component {
 
     private registerPhysics(): void {
         this.collider.on("onCollisionEnter", (e: ICollisionEvent) => {
+            const colliderNode = e.otherCollider.node;
+            const colliderName = colliderNode.name;
 
-            if (e.otherCollider.node.name.includes("beton")
-                || e.otherCollider.node.name.includes("Cube")
-                || e.otherCollider.node.name.includes("Cylinder")
+            if (colliderName.includes("beton")
+                || colliderName.includes("Cube")
+                || colliderName.includes("Cylinder")
             ) {
-                log(e.otherCollider.node.name)
+
+                if (colliderName.includes("beton")) {
+                    GameInfo.currentBetonsFall += 1;
+
+                }
+
+                else if (colliderName.includes("Cube")) {
+                    GameInfo.currentCubesFall += 1;
+
+                }
+
+                else {
+                    GameInfo.currentCylindersFall += 1;
+                }
+
+
                 e.otherCollider.getComponent(RigidBody).setGroup(0);
                 SoundController.Instance(SoundController).playSound("EatSound");
                 // tween(e.otherCollider.node)
@@ -112,7 +129,7 @@ export class BlackHole extends Component {
             .to(0.2, { scale: newScale }, { easing: easing.elasticOut })
             .start();
 
-            SoundController.Instance(SoundController).playSound("increaseScale");
+        SoundController.Instance(SoundController).playSound("increaseScale");
     }
 
 

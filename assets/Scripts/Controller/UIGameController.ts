@@ -1,5 +1,6 @@
 
-import { _decorator, Component, Node } from 'cc';
+import { _decorator, Component, Label, Node, screen, view } from 'cc';
+import { GameInfo } from '../Const/GameInfo';
 const { ccclass, property } = _decorator;
 
 /**
@@ -13,11 +14,43 @@ const { ccclass, property } = _decorator;
  * ManualUrl = https://docs.cocos.com/creator/3.4/manual/en/
  *
  */
- 
+
 @ccclass('UIGameController')
 export class UIGameController extends Component {
+
+    @property(Node)
+    Score: Node = null;
+
+    @property(Label)
+    cubesFall_Label: Label = null;
+    @property(Label)
+    cylindersFall_Label: Label = null;
+    @property(Label)
+    betonsFall_Label: Label = null;
+
+
     protected start(): void {
-        
+        this.handleYourOrientation();
+
+        view.setResizeCallback(() => {
+            this.handleYourOrientation();
+        });
+    }
+
+
+    private handleYourOrientation(): void {
+        if (screen.windowSize.width > screen.windowSize.height) {
+            this.Score.setScale(1.1, 1.1, 1.1);
+        } else {
+            this.Score.setScale(1, 1, 1);
+        }
+    }
+
+
+    protected update(dt: number): void {
+        this.cubesFall_Label.string = `${GameInfo.currentCubesFall}`;
+        this.cylindersFall_Label.string = `${GameInfo.currentCylindersFall}`;
+        this.betonsFall_Label.string = `${GameInfo.currentBetonsFall}`;
     }
 }
 
