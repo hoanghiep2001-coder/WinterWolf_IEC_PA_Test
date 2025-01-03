@@ -85,10 +85,9 @@ export class BlackHole extends Component {
 
                 e.otherCollider.getComponent(RigidBody).setGroup(0);
                 SoundController.Instance(SoundController).playSound("EatSound");
-                // tween(e.otherCollider.node)
-                // .to(0.1, {worldPosition: this.thisWorldPos}, {easing: easing.smooth})
-                // .start()
 
+                this.handleSuckInHole(e.otherCollider.node);
+               
                 // e.otherCollider.getComponent(RigidBody).type = ERigidBodyType.DYNAMIC;
 
                 // this.scheduleOnce(() => {
@@ -100,16 +99,23 @@ export class BlackHole extends Component {
         })
 
         // this.collider.on("onCollisionExit", (e: ICollisionEvent) => {
-
         //     if (e.otherCollider.node.name.includes("Capsule")
         //         || e.otherCollider.node.name.includes("Cube")
         //         || e.otherCollider.node.name.includes("Cylinder")
         //     ) {
         //         e.otherCollider.getComponent(RigidBody).group = 2;   
         //         e.otherCollider.getComponent(RigidBody).type = ERigidBodyType.STATIC;             
-
         //     }
         // })
+    }
+
+
+    private handleSuckInHole(otherColliderNode: Node): void {
+        const newWorldPos = new Vec3(this.thisWorldPos.x, this.thisWorldPos.y - 3, this.thisWorldPos.z)
+
+        tween(otherColliderNode)
+        .to(0.28, {worldPosition: newWorldPos}, {easing: easing.smooth})
+        .start()
     }
 
 
